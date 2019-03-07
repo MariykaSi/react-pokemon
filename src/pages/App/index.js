@@ -8,7 +8,8 @@ import Footer from '../../components/Organisms/Footer'
 import RecipeReviewCard from '../../components/Molecules/RecipeReviewCard'
 import Pagination from '../../components/Molecules/Pagination'
 import SelectRerPage from '../../components/Molecules/SelectRerPage'
-import SearchField from '../../components/Molecules/SearchField'
+import InputField from '../../components/Molecules/InputField'
+import ChipsArray from '../../components/Molecules/ChipsArray'
 import { options } from '../../constants'
 
 import './styles.scss'
@@ -26,15 +27,22 @@ class App extends Component {
     const filteredPokemons = pokemons.slice().filter(item =>
       item.name.toLowerCase().includes(AppStore.searchName.toLowerCase())
     )
-
+    const types = mobx.toJS(AppStore.types)
     return (
       <div className='page'>
         <Header />
         <div className='main'>
           <div className='topBar'>
-            <SearchField
+            <InputField
+              label='Search name'
               value={AppStore.searchName}
               onChange={value => AppStore.searchByName(value)} />
+            <InputField
+              label='Search type'
+              value={AppStore.searchType}
+              onChange={value => AppStore.searchByType(value)}
+              onSubmit={e => AppStore.onSubmit(e)} />
+            <ChipsArray chipData={types} handleDelete={value => AppStore.deleteValueFromFilter(value)} />
             <SelectRerPage
               options={options}
               value={AppStore.limit}
@@ -42,7 +50,7 @@ class App extends Component {
           </div>
           <div className='content'>
             {filteredPokemons[0] && filteredPokemons.map(item =>
-              <RecipeReviewCard key={item.id} pokemon={item} />)
+              <RecipeReviewCard key={item.id} pokemon={item} types={types} />)
             }
           </div>
           {

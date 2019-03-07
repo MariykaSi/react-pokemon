@@ -1,0 +1,11 @@
+@import "../../../styles/scss/variables";
+
+.topBar .paper {
+  box-shadow: none;
+  display: flex;
+  align-items: flex-end;
+  margin: 0 20px 8px 20px;
+  .chip {
+    margin: 0 10px;
+  }
+}

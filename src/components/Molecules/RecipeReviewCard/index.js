@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -70,47 +70,55 @@ class RecipeReviewCard extends PureComponent {
   }
 
   render () {
-    const { pokemon } = this.props
+    const { pokemon, types } = this.props
     const imgExist = !!pokemon.sprites.back_default
     const image = imgExist ? pokemon.sprites.back_default : 'https://picsum.photos/100/100'
+    const typeIsFilter = pokemon.types.map(item => types.includes(item.type.name))
     return (
-      <Card className='card'>
-        <CardHeader
-          avatar={
-            <Avatar className='avatar'>
-              {pokemon.base_experience}
-            </Avatar>
-          }
-          title={pokemon.name}
-          subheader={`#${pokemon.id}`}
-        />
-        <CardMedia
-          className='media'
-          image={image}
-          title={pokemon.name}
-        />
-        <CardContent className='cardContent'>
-          <Typography component='p'>
-            <span className='statistics-title'>Statistics:</span>
-            {pokemon.stats.map(item => <span key={uuidv1()}>{item.stat.name}: {item.base_stat}</span>)}
-          </Typography>
-          <div className='types'>
-            {pokemon.types.map(item =>
-              <span
-                className='type'
-                key={uuidv1()}
-                style={{ backgroundColor: this.getColor(item.type.name) }}>
-                {item.type.name}
-              </span>)}
-          </div>
-        </CardContent>
-      </Card>
+      <Fragment>
+        {typeIsFilter.includes(true) || !types[0]
+          ? <Card className='card'>
+            <CardHeader
+              avatar={
+                <Avatar className='avatar'>
+                  {pokemon.base_experience}
+                </Avatar>
+              }
+              title={pokemon.name}
+              subheader={`#${pokemon.id}`}
+            />
+            <CardMedia
+              className='media'
+              image={image}
+              title={pokemon.name}
+            />
+            <CardContent className='cardContent'>
+              <Typography component='p'>
+                <span className='statistics-title'>Statistics:</span>
+                {pokemon.stats.map(item => <span key={uuidv1()}>{item.stat.name}: {item.base_stat}</span>)}
+              </Typography>
+              <div className='types'>
+                {pokemon.types.map(item =>
+                  <span
+                    className='type'
+                    key={uuidv1()}
+                    style={{ backgroundColor: this.getColor(item.type.name) }}>
+                    {item.type.name}
+                  </span>)}
+              </div>
+            </CardContent>
+          </Card>
+          : null
+        }
+
+      </Fragment>
     )
   }
 }
 
 RecipeReviewCard.propTypes = {
-  pokemon: PropTypes.object.isRequired
+  pokemon: PropTypes.object.isRequired,
+  types: PropTypes.array
 }
 
 export default RecipeReviewCard

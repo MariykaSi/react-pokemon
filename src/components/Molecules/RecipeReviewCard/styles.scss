@@ -1,0 +1,43 @@
+@import "../../../styles/scss/variables";
+
+.card {
+  width: 23%;
+  margin: 1%;
+  padding: 5px;
+
+  @media #{$medium} {
+    width: 31.3%;
+    margin: 1%;
+  }
+
+  @media #{$small} {
+    width: 80%;
+  }
+  .avatar {
+    font-size: 14px;
+  }
+
+  .media {
+    height: 100px;
+    background-size: contain;
+  }
+
+  .cardContent {
+    .statistics-title {
+      font-weight: bold;
+    }
+    span {
+      display: block;
+    }
+    .types {
+      display: flex;
+      flex-wrap: wrap;
+      span {
+        width: 30%;
+        padding: 5px;
+        margin: 10px 10px 0 0;
+        color: $white;
+      }
+    }
+  }
+}

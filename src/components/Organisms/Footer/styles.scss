@@ -1,0 +1,17 @@
+@import "../../../styles/scss/variables";
+
+.footer {
+  border-top: 1px solid $gray;
+
+  .copyright {
+    padding: 30px 0;
+    position: relative;
+    color: $gray;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  span {
+    text-transform: uppercase;
+  }
+}
